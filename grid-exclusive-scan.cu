@@ -13,7 +13,7 @@ int warp_exclusive_scan(int x){
     int lane_id = threadIdx.x & 31;
     int o = x;
     for(int offset = 1; offset < 32; offset <<= 1){
-        int y = __shfl_up_sync(0xFFFFFFFF, x, offset);    
+        int y = __shfl_up_sync(0xFFFFFFFFu, x, offset);    
         if(lane_id >= offset) x += y;    
     }
     return x-o;
@@ -82,7 +82,7 @@ int main(){
     
     block_scan<<<BLK_NUM,BLK_DIM>>>(d_in, d_out, N, block_sum); 
 
-    void* d_temp;
+    void* d_temp = nullptr;;
     size_t temp_bytes = 0;
 
     // query
