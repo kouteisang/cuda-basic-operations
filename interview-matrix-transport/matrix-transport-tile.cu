@@ -10,7 +10,7 @@ using namespace std;
 template<typename T>
 __global__ void transport_tile(T* __restrict__ d_in, T* __restrict__ d_out, int h, int w){
     
-    __shared__ T tile[TILE][TILE + 1]; // avoid bank conflict?
+    __shared__ T tile[TILE][TILE + 1]; // avoid bank conflict
     
     int row = blockIdx.y * TILE;
     int col = blockIdx.x * TILE;
